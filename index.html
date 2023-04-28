@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Node.js MySQL Example</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody id="results">
+      </tbody>
+    </table>
+    <script>
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', '/data', true);
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          const data = JSON.parse(xhr.responseText);
+          const results = document.getElementById('results');
+          data.forEach(function(row) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${row.id}</td>
+              <td>${row.nom}</td>
+              <td>${row.prenom}</td>
+            `;
+            results.appendChild(tr);
+          });
+        }
+      };
+      xhr.send();
+    </script>
+  </body>
+</html>
